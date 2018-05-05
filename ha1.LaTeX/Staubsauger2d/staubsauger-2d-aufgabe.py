@@ -79,10 +79,27 @@ def ReflexVacuumAgent():
 
 
 def ModelBasedVacuumAgent():
+    """An agent that keeps track of what locations are clean or dirty."""
     model = {}
-
+    direction = {(-1,0): 'Left', (1,0): 'Right', (0,-1): 'Up', (0,1): 'Down'}
+    # destination = None
+    
     def program(percept):
-        #TODO
+        (x,y), status = percept
+        model[(x,y)] = status
+        if status == 'Dirty':
+            #  Clean if location is dirty
+            return 'Suck'
+        else:
+            unknown = [(i,j) for (i,j) in direction.keys() if not (x+i,y+j) in model] #and not (x+i,y+j) == destination
+            # destination = False
+            if len(unknown) > 0:
+                #  Into the unknown!
+                move = random.choice(unknown)
+                # destination = (x+move[0],y+move[1])
+                return direction[move]
+            return random.choice(['Right', 'Left','Up','Down'])    
+        
     return Agent(program)
 
 
