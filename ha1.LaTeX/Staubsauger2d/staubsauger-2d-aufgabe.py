@@ -82,23 +82,36 @@ def ModelBasedVacuumAgent():
     """An agent that keeps track of what locations are clean or dirty."""
     model = {}
     direction = {(-1,0): 'Left', (1,0): 'Right', (0,-1): 'Up', (0,1): 'Down'}
+    last_location = None
+    last_move = None
+    moves = None
     # destination = None
     
     def program(percept):
-        (x,y), status = percept
-        model[(x,y)] = status
+        nonlocal last_location
+        nonlocal last_move
+        nonlocal moves
+        (x, y), status = percept
+        model[(x, y)] = status
+
+        if not ((x, y) == last_location):
+            #  new location: check for unknown neighbors
+            moves = [direction[(i, j)] for (i, j) in direction.keys() if not (x + i, y + j) in model]
+            last_location = (x, y)
+        else:
+            #  last move had no effect: remove last_move
+            if last_move in moves:
+                moves.remove(last_move)
+
         if status == 'Dirty':
             #  Clean if location is dirty
             return 'Suck'
+        elif len(moves) > 0:
+            #  Into the unknown!
+            last_move = random.choice(moves)
+            return last_move
         else:
-            unknown = [(i,j) for (i,j) in direction.keys() if not (x+i,y+j) in model] #and not (x+i,y+j) == destination
-            # destination = False
-            if len(unknown) > 0:
-                #  Into the unknown!
-                move = random.choice(unknown)
-                # destination = (x+move[0],y+move[1])
-                return direction[move]
-            return random.choice(['Right', 'Left','Up','Down'])    
+            return random.choice(['Right', 'Left', 'Up', 'Down'])
         
     return Agent(program)
 
@@ -274,6 +287,14 @@ class VacuumEnvironment2D(Environment):
                     canvas.create_image(x*100+1,y*100+50, image=img_dirt, anchor=NW)
         canvas.update()
 
+
+def performance(environment):
+    performance = []
+    for thing in environment.things:
+        if hasattr(thing, 'performance'):
+            performance.append(thing.performance)
+    return performance
+
 e = VacuumEnvironment2D((8,6))
 e.add_thing(TraceAgent(ModelBasedVacuumAgent()))
 e.add_thing(TraceAgent(ModelBasedVacuumAgent()))
@@ -281,5 +302,6 @@ e.add_thing(TraceAgent(ReflexVacuumAgent()))
 c=Canvas(tk_master,width=800,height=600, background='white')
 c.pack();
 tk_master.bind("<space>",lambda event: e.step(c))
+tk_master.bind("<p>",lambda event: print('Performance: '+str(performance(e))))
 tk_master.after(0,lambda: e.display(c))
 mainloop()
