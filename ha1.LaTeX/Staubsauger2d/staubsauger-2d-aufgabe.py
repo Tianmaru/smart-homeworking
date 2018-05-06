@@ -117,7 +117,7 @@ def ModelBasedVacuumAgent():
             return last_move
         else:
             return random.choice(['Right', 'Left', 'Up', 'Down'])
-        
+
     return Agent(program)
 
 
