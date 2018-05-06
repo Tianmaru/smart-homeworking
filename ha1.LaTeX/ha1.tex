@@ -10,10 +10,10 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{mathtools}
-\usepackage{listings}
 \usepackage{ucs}
 \usepackage[shortlabels]{enumitem}
 \usepackage{graphicx}
+\usepackage{listings}
 \usepackage{xcolor}
 
 \definecolor{deepblue}{rgb}{0,0,0.5}
@@ -22,26 +22,65 @@
 
 \lstset{
 language=Python,
-basicstyle=\ttm,
-otherkeywords={self},             % Add keywords here
-keywordstyle=\ttb\color{deepblue},
+breaklines=true,
+otherkeywords={self,nonlocal},             % Add keywords here
+keywordstyle=\bfseries\color{orange},
 emph={__init__},          % Custom highlighting
-emphstyle=\ttb\color{deepred},    % Custom highlighting style
+emphstyle=\color{deepred},    % Custom highlighting style
 stringstyle=\color{deepgreen},
 frame=tb,                         % Any extra options here
-showstringspaces=false            % 
+showstringspaces=false,            % 
+numbers = left
 }
 
 \pagestyle{scrheadings}
 \clearscrheadfoot
 \cfoot[\pagemark]{\pagemark}
 \author{Tom Schmidt\\ \and Stefan Poggenberg\\ \and Samuel Schöpa\\ \and Bjarne Hiller\\216203851}
-\title{KI -- HA 1}
+\title{KI HA 1}
 \date{18. Mai 2018}
 
 \begin{document}
 \maketitle
 \section{Der Staubsauger-Agent}
+\subsection{Programm}
+\begin{lstlisting}
+def ModelBasedVacuumAgent():
+    """An agent that keeps track of what locations are clean or dirty."""
+    model = {}
+    direction = {(-1,0): 'Left', (1,0): 'Right', (0,-1): 'Up', (0,1): 'Down'}
+    last_location = None
+    last_move = None
+    moves = None
+    
+    def program(percept):
+        nonlocal last_location
+        nonlocal last_move
+        nonlocal moves
+        (x, y), status = percept
+        model[(x, y)] = status
 
+        if not ((x, y) == last_location):
+            #  new location: check for unknown neighbors
+            moves = [direction[(i, j)] for (i, j) in direction.keys() if not (x + i, y + j) in model]
+            last_location = (x, y)
+        else:
+            #  last move had no effect: remove last_move
+            if last_move in moves:
+                moves.remove(last_move)
+
+        if status == 'Dirty':
+            #  Clean if location is dirty
+            return 'Suck'
+        elif len(moves) > 0:
+            #  Into the unknown!
+            last_move = random.choice(moves)
+            return last_move
+        else:
+            return random.choice(['Right', 'Left', 'Up', 'Down'])
+        
+    return Agent(program)
+\end{lstlisting}
+\subsection{Optimaler Agent}
 \section{Problemlösen durch Suchen}
 \end{document}

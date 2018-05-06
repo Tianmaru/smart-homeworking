@@ -1,6 +1,12 @@
 """
 @Author Martin Hoffmann
 @Author Stefan Luedtke
+
+@Maintainer Tom Schmidt
+@Maintainer Stefan Poggenberg
+@Maintainer Samuel Schöpa
+@Maintainer Bjarne Hiller (216203851)
+
 @License CC BY
 """
 
@@ -85,7 +91,6 @@ def ModelBasedVacuumAgent():
     last_location = None
     last_move = None
     moves = None
-    # destination = None
     
     def program(percept):
         nonlocal last_location
