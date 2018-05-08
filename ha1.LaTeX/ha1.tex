@@ -44,14 +44,14 @@ numbers = left
 \maketitle
 \section{Der Staubsauger-Agent}
 \subsection{Implementierung}
-\lstinputlisting[firstline=87, lastline=121]{Staubsauger2d/staubsauger-2d-aufgabe.py}
+\lstinputlisting[firstline=87, lastline=121]{a1/a1.py}
 \subsection{Optimaler Agent}
 Der implementierte Agent ist nicht optimal, da er für die Auswahl seiner Aktion nur die momentan benachbarten Felder beachtet. Sind alle benachbarten Felder schon entdeckt, wählt er eine zufällige Aktion. Ein optimaler Agent würde stattdessen berücksichtigen, in welche Richtung er sich bewegen müsste, um am schnellsten zu unbekannten Feldern zu kommen. Dies wäre dann aber schon ein Ziel-basierter Agent, da er zukünftige Beobachtungen und Aktionen berücksichtigt. Außerdem dürfte ein optimaler Agent keine Bewegungen mehr ausführen, wenn er sich sicher ist, dass er die gesamte Umgebung erkundet hat und alles sauber ist, da er so Performance verliert. Dies ist aber in der gegebenen Multi-Agent-Umgebung schwierig zu implementieren, da Felder nicht nur vom statischen Rand, sondern auch von anderen mobilen Agenten blockiert werden können.
 \section{Problemlösen durch Suchen}
 \subsection{Suchalgorithmen}
 \subsection{Implementierung}
-\lstinputlisting[firstline=144, lastline=157,title=(a) Definition des Graphen]{Suchverfahren/suchverfahren-aufgabe.py}
-\lstinputlisting[firstline=56, lastline=73,title=(b) Heuristik]{Suchverfahren/suchverfahren-aufgabe.py}
-\lstinputlisting[firstline=106, lastline=132,title=(c) Greedy-Suche]{Suchverfahren/suchverfahren-aufgabe.py}
-\lstinputlisting[firstline=161,title=(d) main-Funktion]{Suchverfahren/suchverfahren-aufgabe.py}
+\lstinputlisting[firstline=151, lastline=164,title=(a) Definition des Graphen]{a2/a2.py}
+\lstinputlisting[firstline=63, lastline=80,title=(b) Heuristik]{a2/a2.py}
+\lstinputlisting[firstline=113, lastline=139,title=(c) Greedy-Suche]{a2/a2.py}
+\lstinputlisting[firstline=168,title=(d) main-Funktion]{a2/a2.py}
 \end{document}

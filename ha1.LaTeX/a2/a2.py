@@ -1,3 +1,10 @@
+"""
+@Maintainer Tom Schmidt
+@Maintainer Stefan Poggenberg
+@Maintainer Samuel Schöpa
+@Maintainer Bjarne Hiller (216203851)
+"""
+
 import collections
 import heapq
 import math
