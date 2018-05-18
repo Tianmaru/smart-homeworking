@@ -4,7 +4,7 @@
 
 @Maintainer Tom Schmidt
 @Maintainer Stefan Poggenberg
-@Maintainer Samuel Schöpa
+@Maintainer Samuel Schöpa (216203821)
 @Maintainer Bjarne Hiller (216203851)
 
 @License CC BY
