@@ -1,6 +1,6 @@
 """
-@Maintainer Tom Schmidt
-@Maintainer Stefan Poggenberg
+@Maintainer Tom Schmidt (216204224)
+@Maintainer Stefan Poggenberg (218100161)
 @Maintainer Samuel Schöpa (216203821)
 @Maintainer Bjarne Hiller (216203851)
 """
