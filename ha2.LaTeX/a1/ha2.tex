@@ -1,0 +1,78 @@
+\documentclass[fleqn]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{scrpage2}
+\usepackage{paralist}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{ucs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\lstset{
+language=Python,
+breaklines=true,
+otherkeywords={self,nonlocal},             % Add keywords here
+keywordstyle=\bfseries\color{orange},
+emph={__init__},          % Custom highlighting
+emphstyle=\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false,            %
+numbers = left
+}
+
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\cfoot[\pagemark]{\pagemark}
+\author{Tom Schmidt\\216204224 \and Stefan Poggenberg\\218100161 \and Samuel Schöpa\\216203821 \and Bjarne Hiller\\216203851}
+\title{KI HA 2}
+\date{18. Mai 2018}
+
+\begin{document}
+\maketitle
+\section{Anmerkung CSP mit Heuristik}
+\textbf{Grundlegende Idee:}
+ \begin{itemize}
+	\item forme eine Adjazentsmatrix für alle Knoten im Graph
+	\item nehme in jedem Schritt den Eintrag aus der Matrix mit den wenigsten benachtbarten Knoten; \\ falls es mehrere Knoten gibt mit gleicher Länge, wähle zufälligen Eintrag	
+	\item streiche diesen Eintrag 
+	\item sollte keine Färbung möglich sein, trage den gestrichenen Eintrag erneut in die Adjazentsmatrix ein (beachte dabei natürlich schon gestrichene Einträge)
+\end{itemize}
+\textbf{Testergebnisse für 10 runs}
+\begin{itemize}
+	\item[] ohne Heuristik: konstant 9
+	\item[] mit Heuristik: 34, 44, 45, 53, 48, 24, 52, 51, 34,  26
+\end{itemize}
+\section{Schiebepuzzles als Planungsproblem}
+\subsection{3}
+step \\
+        0: MOVE T1 P22 P21 \\
+        1: MOVE T3 P12 P22 \\
+        2: MOVE T2 P11 P12 \\
+        3: MOVE T1 P21 P11 \\
+        4: MOVE T3 P22 P21 % vllt sollte ich fauler Sack nicht einfach die ff ergebnisse hier hinklatschen
+\subsection{4}
+  at(tile, position): Ist an gegebener Position gegebenes tile? \\
+  empty(position): Ist auf der Position kein tile? \\
+  neighbor(position, position): Liegen gegebene Positionen nebeneinander? \\
+  move(tile, position): Bewege gegebenes tile auf gegebene Position. \\
+\subsection{5}
+\subsubsection{domain.pddl}
+\lstinputlisting[firstline=1, lastline=25]{a2/domain.pddl}
+\subsubsection{problem.pddl}
+\lstinputlisting[firstline=1, lastline=32]{a2/problem.pddl}
+
+
+\end{document}
